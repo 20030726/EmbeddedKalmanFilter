@@ -10,9 +10,13 @@
 static void test_c_kf() {
     ekf_kf_t model{};
     assert(ekf_kf_init(nullptr, 0.0F, 1.0F, 0.1F, 0.2F) == EKF_STATUS_INVALID_ARGUMENT);
+    assert(ekf_kf_init(&model, 0.0F, 1.0F, 0.1F, 0.0F) == EKF_STATUS_INVALID_ARGUMENT);
     assert(ekf_kf_init(&model, 0.0F, 1.0F, 0.1F, 0.2F) == EKF_STATUS_OK);
     assert(ekf_kf_predict(&model, 1.0F) == EKF_STATUS_OK);
     assert(ekf_kf_update(&model, 1.2F) == EKF_STATUS_OK);
+    model.covariance = -1.0F;
+    model.measurement_noise = 0.5F;
+    assert(ekf_kf_update(&model, 0.0F) == EKF_STATUS_NUMERICAL_ERROR);
 }
 
 static void test_c_ekf() {

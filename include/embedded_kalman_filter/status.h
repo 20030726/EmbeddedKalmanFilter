@@ -4,7 +4,8 @@
 typedef enum ekf_status {
     EKF_STATUS_OK = 0,
     EKF_STATUS_INVALID_ARGUMENT = 1,
-    EKF_STATUS_NOT_IMPLEMENTED = 2
+    EKF_STATUS_NOT_IMPLEMENTED = 2,
+    EKF_STATUS_NUMERICAL_ERROR = 3
 } ekf_status_t;
 
 #endif
