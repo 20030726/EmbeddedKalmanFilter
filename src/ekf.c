@@ -1,8 +1,9 @@
+#include <stddef.h>
 #include <embedded_kalman_filter/ekf.h>
 
 ekf_status_t ekf_ekf_init(ekf_ekf_t* model, float* state_buffer, float* covariance_buffer,
                           unsigned int dimension, float process_noise, float measurement_noise) {
-    if (model == 0 || state_buffer == 0 || covariance_buffer == 0 || dimension == 0 ||
+    if (model == NULL || state_buffer == NULL || covariance_buffer == NULL || dimension == 0U ||
         process_noise < 0.0F || measurement_noise < 0.0F) {
         return EKF_STATUS_INVALID_ARGUMENT;
     }
@@ -16,7 +17,7 @@ ekf_status_t ekf_ekf_init(ekf_ekf_t* model, float* state_buffer, float* covarian
 }
 
 ekf_status_t ekf_ekf_predict(ekf_ekf_t* model) {
-    if (model == 0) {
+    if (model == NULL) {
         return EKF_STATUS_INVALID_ARGUMENT;
     }
 
@@ -24,7 +25,7 @@ ekf_status_t ekf_ekf_predict(ekf_ekf_t* model) {
 }
 
 ekf_status_t ekf_ekf_update(ekf_ekf_t* model) {
-    if (model == 0) {
+    if (model == NULL) {
         return EKF_STATUS_INVALID_ARGUMENT;
     }
 
