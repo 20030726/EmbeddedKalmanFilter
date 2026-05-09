@@ -1,0 +1,10 @@
+#ifndef EMBEDDED_KALMAN_FILTER_STATUS_H
+#define EMBEDDED_KALMAN_FILTER_STATUS_H
+
+typedef enum ekf_status {
+    EKF_STATUS_OK = 0,
+    EKF_STATUS_INVALID_ARGUMENT = 1,
+    EKF_STATUS_NOT_IMPLEMENTED = 2
+} ekf_status_t;
+
+#endif
