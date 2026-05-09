@@ -36,6 +36,7 @@ static void test_c_ukf() {
 
 static void test_cpp_wrappers() {
     embedded_kalman_filter::Kf kf(0.0F, 1.0F, 0.1F, 0.2F);
+    assert(kf.status() == EKF_STATUS_OK);
     assert(kf.predict(0.5F) == EKF_STATUS_OK);
     assert(kf.update(0.7F) == EKF_STATUS_OK);
 
@@ -43,6 +44,11 @@ static void test_cpp_wrappers() {
     float covariance[4] = {1.0F, 0.0F, 0.0F, 1.0F};
     embedded_kalman_filter::Ekf ekf(state, covariance, 2, 0.1F, 0.2F);
     embedded_kalman_filter::Ukf ukf(state, covariance, 2, 1.0F, 2.0F, 0.0F);
+    embedded_kalman_filter::Ekf invalid_ekf(state, covariance, 0, 0.1F, 0.2F);
+    assert(ekf.status() == EKF_STATUS_OK);
+    assert(ukf.status() == EKF_STATUS_OK);
+    assert(invalid_ekf.status() == EKF_STATUS_INVALID_ARGUMENT);
+    assert(invalid_ekf.predict() == EKF_STATUS_INVALID_ARGUMENT);
     assert(ekf.predict() == EKF_STATUS_NOT_IMPLEMENTED);
     assert(ukf.predict() == EKF_STATUS_NOT_IMPLEMENTED);
 }
